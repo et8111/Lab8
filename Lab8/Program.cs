@@ -13,48 +13,101 @@ namespace Lab8
 {
     class Program
     {
+        static void print(string[,] students, bool[,] checker,string temp)
+        {
+            Console.WriteLine("Name:".PadRight(17) + "Town:".PadRight(17) + "Food:".PadRight(17));
+            Console.WriteLine("===================================================");
+            for (int i = 0; i < students.GetLength(0); i++)
+            {
+                Console.Write(students[i, 0].PadRight(16) + "|");
+                for (int j = 1; j < students.GetLength(1); j++)
+                {
+                    temp = (checker[i, j] == true) ? students[i, j] : " ";
+                    Console.Write(temp.PadRight(16) + "|");
+                }
+                Console.WriteLine();
+            }
+            available(checker);
+        }
+
+        static int FINDER(string[,] students)
+        {
+            int num = 0;
+            string word = Console.ReadLine();
+            if (int.TryParse(word,out num))
+            {
+                return num-1;
+            }
+
+            for(int i = 0; i < students.GetLength(0); i++)
+            {
+                if (students[i, 0] == word)
+                    return i;
+            }
+            Console.WriteLine("Invalid Input.");
+            return FINDER(students);
+        }
         static void available(bool[,] checker)
         {
             string s = "";
             bool and = false;
             for (int i = 0; i < checker.GetLength(0); i++)
-                if (checker[i, 0] == false)
+                if (checker[i, 1] == false)
                 {
                     s += "Category 1 is still available";
                     and = true;
                     break;
                 }
             for (int i = 0; i < checker.GetLength(0); i++)
-                if (checker[i, 1] == false && and == true)
+                if (checker[i, 2] == false && and == true)
                 {
                     s += ", and category 2 is still available";
                     break;
                 }
-                else if (checker[i,1] == false)
+                else if (checker[i, 1] == false)
                 {
                     s = "Category 2 is still available";
                     break;
                 }
-            Console.WriteLine(s);
+            Console.WriteLine("\n"+s);
         }
 
         static void Main(string[] args)
         {
-            string[,] students = new string[2, 2] { {"Warren","Burger" },{"Gana","Egg" } };
-            bool[,] checker = new bool[2, 2];
-            string[] name = new string[2] { "Jordan", "Nana" };
+            string[,] students = new string[15, 3] {
+            {"Michael", "Canton", "Chicken Wings" },
+            { "Taylor", "Caro", "Cordon Bleu" },
+ { "Joshua", "Taylor", "Turkey" },
+ { "Lin-Z", "Toledo", "Ice Cream" },
+ { "Madelyn", "Oxford", "Croissent" },
+ { "Nana", "Guana", "Empanadas"},
+ { "Rochelle", "Mars", "Space Cheese"},
+ { "Shah", "Newark", "Chicken Wings"},
+  { "Tim", "Detroit", "Chicken Parm"},
+   { "Abby", "Traverse City", "Soup"},
+   { "Blake", "Los Angeles", "Cannolis"},
+   { "Bob", "St. Clair Shores", "Pizza"},
+   { "Jordan", "Warren", "Burgers"},
+   { "Jay", "Macomb", "Pickles"},
+   { "Jon", "Huntington Woods", "Ribs"},};
+            bool[,] checker = new bool[students.GetLength(0), students.GetLength(1)];
             string temp = "";
-            int studentNumber, category;
+            int studentNumber, category = 0;
 
 
             while (true)
             {
                 try
                 {
-                    Console.Write("\nChoose a student (theres 2): ");
-                    studentNumber = int.Parse(Console.ReadLine()) - 1;
-                    Console.Write("Enter 1 for town, 2 for food: ");
-                    category = int.Parse(Console.ReadLine()) - 1;
+                    print(students, checker, temp);
+                    Console.Write("Enter student name OR 1-15: ");
+                    studentNumber = FINDER(students);
+                    Console.Write("Town or 1 | Food or 2: ");
+                    temp = Console.ReadLine();
+                    if (temp == "Town" || temp == "1")
+                        category = 1;
+                    else if (temp == "Food" || temp == "2")
+                        category = 2;
                     checker[studentNumber, category] = true;
                 }
                 catch(Exception ex)
@@ -62,19 +115,7 @@ namespace Lab8
                     Console.WriteLine(ex.Message);
                     continue;
                 }
-                Console.WriteLine("Name:".PadRight(10) + "Town:".PadRight(10) + "Food:".PadRight(10));
-                Console.WriteLine("============================");
-                for (int i = 0; i < students.GetLength(0); i++)
-                {
-                    Console.Write(name[i].PadRight(9) + "|");
-                    for (int j = 0; j < students.GetLength(1); j++)
-                    {
-                        temp = (checker[i,j] == true) ? students[i, j] : " ";
-                        Console.Write(temp.PadRight(9) + "|");
-                    }
-                    Console.WriteLine();
-                }
-                available(checker);
+                print(students, checker, temp);
                 ask2:
                 Console.Write("Again(y/n): ");
                 temp = Console.ReadLine().ToLower();

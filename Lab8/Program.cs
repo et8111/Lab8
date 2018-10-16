@@ -42,11 +42,15 @@ namespace Lab8
                     }
                     Console.WriteLine();
                 }
+                ask2:
                 Console.Write("Again(y/n): ");
-                if (Console.ReadLine().ToLower() == "y")
+                temp = Console.ReadLine().ToLower();
+                if (temp == "y")
                     continue;
-                else
+                else if (temp == "n")
                     break;
+                else
+                    goto ask2;
             }
         }
     }

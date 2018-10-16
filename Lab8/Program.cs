@@ -4,6 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+/*
+ *Messy im not sure it needs to be, but wanted to emphasis 2d array table
+ */
 namespace Lab8
 {
     class Program
@@ -34,7 +39,7 @@ namespace Lab8
         }
 
         static void Main(string[] args)
-        {//I got a little fancy for no reason
+        {
             string[,] students = new string[2, 2] { {"Warren","Burger" },{"Gana","Egg" } };
             bool[,] checker = new bool[2, 2];
             string[] name = new string[2] { "Jordan", "Nana" };

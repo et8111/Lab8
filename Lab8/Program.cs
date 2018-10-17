@@ -27,7 +27,7 @@ namespace Lab8
             available(checker);
         }
 
-        static int FINDER(string[,] students)
+        static int FINDER(string[,] students)//Not perfect. entering Michael or Taylor for the second option triggers 'Town' or 'Food'
         {//based on user input searches for a word or number and returns the index
             int num = 0;
             string word = Console.ReadLine();

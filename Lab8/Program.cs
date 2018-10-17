@@ -11,7 +11,7 @@ namespace Lab8
     class Program
     {
         static void print(string[,] students, bool[,] checker,string temp)
-        {
+        {//just prints the table
             Console.WriteLine("Name:".PadRight(17) + "Town:".PadRight(17) + "Food:".PadRight(17));
             Console.WriteLine("===================================================");
             for (int i = 0; i < students.GetLength(0); i++)
@@ -28,7 +28,7 @@ namespace Lab8
         }
 
         static int FINDER(string[,] students)
-        {
+        {//based on user input searches for a word or number and returns the index
             int num = 0;
             string word = Console.ReadLine();
             if (word == "Town" || word == "1")
@@ -49,7 +49,7 @@ namespace Lab8
             return FINDER(students);
         }
         static void available(bool[,] checker)
-        {
+        {//Lets the user know that theres more of category 1 and/or category 2
             string s = "";
             bool and = false;
             for (int i = 0; i < checker.GetLength(0); i++)
@@ -91,8 +91,8 @@ namespace Lab8
                     studentNumber = FINDER(students);
                     Console.Write("Town or 1 | Food or 2: ");
                     category = FINDER(students)+1;
-                    checker[studentNumber, category] = true;
-                }
+                    checker[studentNumber, category] = true;//tells the index of student to display on the table
+                }                                           //also triggers the try/catch for format and index exceptions
                 catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
